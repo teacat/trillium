@@ -63,7 +63,7 @@ type Trillium struct {
 	timestamp int64
 	// sequence 是目前時間內所可用的編號（累計直至下一個週期）。
 	sequence int32
-	// randomID 是建立此 Trillium 時所配發的隨機編號，為了去中心化相依性而避免編號產生重複。
+	// workerID 是建立此 Trillium 時所配發的隨機編號，為了去中心化相依性而避免編號產生重複。
 	workerID int16
 }
 
