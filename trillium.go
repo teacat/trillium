@@ -50,7 +50,7 @@ func New(config *Config) *Trillium {
 		panic("trillium: the worker id range is 0 ~ 99999")
 	}
 	return &Trillium{
-		workerID: int16(config.WorkerID),
+		workerID: int32(config.WorkerID),
 		sequence: 0,
 	}
 }
@@ -64,7 +64,7 @@ type Trillium struct {
 	// sequence 是目前時間內所可用的編號（累計直至下一個週期）。
 	sequence int32
 	// workerID 是建立此 Trillium 時所配發的隨機編號，為了去中心化相依性而避免編號產生重複。
-	workerID int16
+	workerID int32
 }
 
 // Generate 會回傳新的唯一編號，此函式每秒可以產生 100,000 個唯一編號，
@@ -103,7 +103,7 @@ type ID struct {
 	// Timestamp 是唯一編號建立時的時間戳。
 	Timestamp float64
 	// WorkerID 是建立此唯一編號的服務編號。
-	WorkerID int16
+	WorkerID int32
 	// Sequence 是唯一編號的流水號。
 	Sequence int32
 }
