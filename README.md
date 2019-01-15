@@ -57,8 +57,8 @@ import (
 )
 
 func main() {
-	t := trillium.New(0)            // 傳入 `0` 會採用預設的起始日期，亦能自訂。
-	fmt.Println(t.Generate().Int()) // 輸出：647219540794334229
+	t := trillium.New(trillium.DefaultConfig())  // 傳入 `0` 會採用預設的起始日期，亦能自訂。
+	fmt.Println(t.Generate().Int())              // 輸出：647219540794334229
 }
 ```
 
