@@ -1,26 +1,34 @@
 package trillium
 
 import (
-	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBasicRoute(t *testing.T) {
+func TestLen(t *testing.T) {
 	assert := assert.New(t)
-	b := New(0)
+	tlm := New(0)
+	now := time.Since(time.Unix(900288000, 0))
+	assert.Len(tlm.Generate().String(), len(strconv.Itoa(int(now.Seconds())))+10)
+}
 
-	a, _ := os.OpenFile("yee.txt", os.O_CREATE|os.O_APPEND, os.ModeAppend)
-	for i := 0; i < 300000; i++ {
-		//<-time.After(time.Millisecond * 1)
-
-		a.WriteString(strconv.Itoa(b.Generate()))
-		a.WriteString("\n")
-
-		//fmt.Println(a.Generate())
+func BenchmarkString(b *testing.B) {
+	t := New(0)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		_ = t.Generate().String()
 	}
-	a.Close()
-	assert.Equal("a", "v")
+}
+
+func BenchmarkInt(b *testing.B) {
+	t := New(0)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		_ = t.Generate().Int()
+	}
 }
