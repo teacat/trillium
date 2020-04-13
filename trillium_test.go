@@ -8,11 +8,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLen(t *testing.T) {
+func TestString(t *testing.T) {
+	assert := assert.New(t)
+	tlm := New(DefaultConfig())
+	assert.Len(tlm.Generate().String(), 20)
+}
+
+func TestInt(t *testing.T) {
 	assert := assert.New(t)
 	tlm := New(DefaultConfig())
 	now := time.Since(time.Unix(900288000, 0))
-	assert.Len(tlm.Generate().String(), len(strconv.Itoa(int(now.Seconds())))+10)
+	assert.Len(tlm.Generate().Int(), len(strconv.Itoa(int(now.Seconds())))+10)
 }
 
 func BenchmarkString(b *testing.B) {

@@ -110,7 +110,7 @@ type ID struct {
 
 // String 會回傳基於 `string` 型態的唯一編號。
 func (i *ID) String() string {
-	timestamp := int(time.Since(from).Seconds())
+	timestamp := uint64(time.Since(from).Seconds())
 	workerID := fmt.Sprintf("%05d", i.WorkerID)
 	sequence := fmt.Sprintf("%05d", i.Sequence)
 
@@ -119,10 +119,16 @@ func (i *ID) String() string {
 
 // Int 會回傳基於 `int` 型態的唯一編號。
 func (i *ID) Int() int {
-	timestamp := int(time.Since(from).Seconds())
-	workerID := fmt.Sprintf("%05d", i.WorkerID)
-	sequence := fmt.Sprintf("%05d", i.Sequence)
-
-	id, _ := strconv.Atoi(fmt.Sprintf("%d%s%s", timestamp, workerID, sequence))
+	id, _ := strconv.Atoi(i.String())
 	return id
+}
+
+// Uint 會回傳基於 `uint` 型態的唯一編號。
+func (i *ID) Uint() uint {
+	return uint(i.Int())
+}
+
+// Uint64 會回傳基於 `uint64` 型態的唯一編號。
+func (i *ID) Uint64() uint64 {
+	return uint64(i.Int())
 }
