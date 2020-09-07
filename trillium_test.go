@@ -29,6 +29,40 @@ func TestTimeout(t *testing.T) {
 	}
 }
 
+func TestGoroutine(t *testing.T) {
+	assert := assert.New(t)
+	tri := New(DefaultConfig())
+
+	done := make(chan bool, 2)
+	go func() {
+		var i int
+		for {
+			if i > 512 {
+				done <- true
+				break
+			}
+			i++
+
+			_, err := tri.Generate()
+			assert.NoError(err)
+		}
+	}()
+	go func() {
+		var i int
+		for {
+			if i > 512 {
+				done <- true
+				break
+			}
+			i++
+
+			_, err := tri.Generate()
+			assert.NoError(err)
+		}
+	}()
+	<-done
+}
+
 func BenchmarkUint64(b *testing.B) {
 	t := New(DefaultConfig())
 	b.ReportAllocs()
