@@ -68,7 +68,7 @@ func New(c *Config) *Trillium {
 	return t
 }
 
-// Generate 會回傳新的唯一編號，此函式每秒可以產生 100,000 個唯一編號，
+// Generate 會回傳新的唯一編號，此函式每秒可以產生 25,600 個唯一編號，
 // 如果該秒的額度耗盡，將會自動推遲到下一秒才回傳。
 func (t *Trillium) Generate() (uint64, error) {
 	const maskSequence = uint16(1<<bitLenSequence - 1)
