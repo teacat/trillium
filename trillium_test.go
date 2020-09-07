@@ -19,14 +19,13 @@ func TestTimeout(t *testing.T) {
 
 	var i int
 	for {
-		if i > 256 {
+		if i > 512 {
 			break
 		}
 		i++
 
-		num, err := New(DefaultConfig()).Generate()
+		_, err := New(DefaultConfig()).Generate()
 		assert.NoError(err)
-		assert.Greater(len(strconv.Itoa(int(num))), 10)
 	}
 }
 
